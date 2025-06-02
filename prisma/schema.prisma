@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model EmailSignup {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  source    String?  // Track where the signup came from (waitlist, investor, etc.)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("email_signups")
+}
